@@ -4,11 +4,15 @@ function App() {
     return (
         <div className="min-h-screen">
             <div className="gradient-bg-welcome">
-                <Navbar />
-                <Welcome />
+                <div className="main_max_width">
+                    <Navbar />
+                    <Welcome />
+                </div>
             </div>
-            <Services />
-            <Transactions />
+            <div className="main_max_width">
+                <Services />
+                <Transactions />
+            </div>
             <Footer />
         </div>
     )

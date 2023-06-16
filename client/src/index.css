@@ -16,6 +16,10 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
+.main_max_width {
+  @apply max-w-[1300px] mx-auto px-4;
+}
+
 .gradient-bg-welcome {
   background-color:#0f0e13;
   background-image: 
