@@ -9,6 +9,19 @@ Install VS Code extension Tailwind CSS IntelliSense. Edit .vscode/settings.json 
 `https://github.com/tailwindlabs/tailwindcss/issues/325`
 
 
+### PropTypes
+
+`https://legacy.reactjs.org/docs/typechecking-with-proptypes.html#proptypes`
+
+```optionalArray: PropTypes.array,
+optionalBool: PropTypes.bool,
+optionalFunc: PropTypes.func,
+optionalNumber: PropTypes.number,
+optionalObject: PropTypes.object,
+optionalString: PropTypes.string,
+optionalSymbol: PropTypes.symbol, ```
+
+
 ### Note:
 Credit for initial tutorial and support: JavaScript Mastery.
 `https://www.youtube.com/watch?v=Wn_Kb3MR_cU`
