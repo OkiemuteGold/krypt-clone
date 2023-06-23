@@ -17,7 +17,7 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
         step="0.0001"
         value={value}
         onChange={(e) => handleChange(e, name)}
-        className="my-2 w-full rounded-[4px] p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
+        className="my-2 w-full rounded-[4px] px-3 py-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
     />
 );
 
