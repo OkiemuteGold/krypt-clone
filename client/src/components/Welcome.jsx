@@ -1,10 +1,11 @@
-// import { useContext } from "react";
+import { useContext } from "react";
+import PropTypes from "prop-types"
+
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
 
-import PropTypes from "prop-types"
-// import { TransactionContext } from "../context/TransactionContext";
+import { TransactionContext } from "../context/TransactionContext";
 // import { shortenAddress } from "../utils/shortenAddress";
 import { Loader } from ".";
 
@@ -25,12 +26,15 @@ Input.propTypes = {
     placeholder: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string,
     handleChange: PropTypes.func.isRequired,
 };
 
 const Welcome = () => {
     // const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading } = useContext(TransactionContext);
+
+    const value = useContext(TransactionContext);
+    console.log(value)
 
     // const handleSubmit = (e) => {
     //     const { addressTo, amount, keyword, message } = formData;

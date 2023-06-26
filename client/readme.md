@@ -1,5 +1,12 @@
 ### Client
 
+### Dependencies
+`"ethers": "^5.5.1"`
+
+`"ethers@^5.0.0"`
+
+`"ethers": "^5.7.2"`
+
 ### Unknown at rule @tailwind
 
 Install VS Code extension Tailwind CSS IntelliSense. Edit .vscode/settings.json in your project folder (or in your user settings), and added 
@@ -13,13 +20,18 @@ Install VS Code extension Tailwind CSS IntelliSense. Edit .vscode/settings.json 
 
 `https://legacy.reactjs.org/docs/typechecking-with-proptypes.html#proptypes`
 
-```optionalArray: PropTypes.array,
+`optionalArray: PropTypes.array,
 optionalBool: PropTypes.bool,
 optionalFunc: PropTypes.func,
 optionalNumber: PropTypes.number,
 optionalObject: PropTypes.object,
 optionalString: PropTypes.string,
-optionalSymbol: PropTypes.symbol, ```
+optionalSymbol: PropTypes.symbol, `
+
+
+### Vite - Env Variables and Modes
+
+`https://vitejs.dev/guide/env-and-mode.html`
 
 
 ### Note:
