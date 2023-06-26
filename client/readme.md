@@ -1,11 +1,12 @@
 ### Client
 
 ### Dependencies
-`"ethers": "^5.5.1"`
-
-`"ethers@^5.0.0"`
 
 `"ethers": "^5.7.2"`
+`npm i "ethers@^5.0.0" --legacy-peer-deps`
+
+`npm i framer-motion autoprefixer @tailwindcss/forms eth-revert-reason`
+
 
 ### Unknown at rule @tailwind
 
