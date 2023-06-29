@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import { logo } from "../assets/images/images";
-import { navLinks } from "../data";
+import { navLinks } from "../utils/navLinks";
 
 export const NavBarItem = ({ title, classprops }) => (
     <li className={`mx-4 cursor-pointer ${classprops ? classprops : ''}`}>{title}</li>

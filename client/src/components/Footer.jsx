@@ -1,6 +1,6 @@
 import { AiFillGithub } from "react-icons/ai";
 import { logo } from "../assets/images/images";
-import { navLinks } from "../data";
+import { navLinks } from "../utils/navLinks";
 
 const Footer = () => (
     <div className="w-full gradient-bg-footer">
