@@ -33,33 +33,21 @@ Input.propTypes = {
 const Welcome = () => {
     // const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading } = useContext(TransactionContext);
 
-    const value = useContext(TransactionContext);
-    console.log(value)
+    const { currentAccount, connectWallet, handleChange, formData, sendTransaction } = useContext(TransactionContext);
 
-    // const handleSubmit = (e) => {
-    //     const { addressTo, amount, keyword, message } = formData;
+    // console.log(currentAccount);
 
-    //     e.preventDefault();
-
-    //     if (!addressTo || !amount || !keyword || !message) return;
-
-    //     sendTransaction();
-    // };
-
-    const currentAccount = false;
     const isLoading = false;
 
-    const connectWallet = (e) => {
-        console.log(e)
-    }
-
-    const handleChange = (e) => {
-        console.log(e)
-    }
-
     const handleSubmit = (e) => {
-        console.log(e)
-    }
+        const { addressTo, amount, keyword, message } = formData;
+
+        e.preventDefault();
+
+        if (!addressTo || !amount || !keyword || !message) return;
+
+        sendTransaction();
+    };
 
     return (
         <div className="flex w-full justify-center items-center">
@@ -71,6 +59,7 @@ const Welcome = () => {
                     <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
                         Explore the crypto world. Buy and sell cryptocurrencies easily on Krypto.
                     </p>
+
                     {!currentAccount && (
                         <button
                             type="button"

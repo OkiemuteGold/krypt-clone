@@ -9,10 +9,9 @@ function App() {
                     <Welcome />
                 </div>
             </div>
-            <div className="main_max_width">
-                <Services />
-                <Transactions />
-            </div>
+
+            <Services />
+            <Transactions />
             <Footer />
         </div>
     )
