@@ -13,6 +13,7 @@ export default {
       },
       screens: {
         mf: "990px",
+        xlf: "2400px"
       },
       keyframes: {
         "slide-in": {

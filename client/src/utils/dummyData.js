@@ -20,7 +20,7 @@ export default [
   },
   {
     id: 3,
-    url: "https://acegif.com/wp-content/uploads/gif-shaking-head-38.gif",
+    url: "https://usagif.com/wp-content/uploads/gif-shaking-head-38.gif",
     message: "",
     timestamp: "12/21/2021, 4:33:21 PM",
     addressFrom: "0xCF8e569A97C423952DdFf902375C7C76549A6A90",

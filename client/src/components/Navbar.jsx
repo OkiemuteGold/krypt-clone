@@ -62,7 +62,7 @@ const Navbar = () => {
                                 <NavBarItem
                                     key={item + index}
                                     title={item}
-                                    classprops="my-4 text-xl"
+                                    classprops="my-5 text-xl"
                                 />
                             )
                         )}

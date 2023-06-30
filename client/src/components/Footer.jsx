@@ -7,12 +7,13 @@ const Footer = () => (
         <div className="main_max_width flex md:justify-center justify-between items-center flex-col p-4">
             <div className="w-full flex sm:flex-row flex-col justify-between items-center my-4">
                 <div className="flex flex-[0.5] sm:justify-start justify-center items-center">
-                    <img src={logo} alt="logo" className="w-32" />
+                    <img src={logo} alt="logo" className="w-32 my-1" />
                 </div>
+
                 <div className="flex flex-1 sm:justify-end justify-center items-center flex-wrap sm:mt-0 mt-6 w-full ml-auto">
                     {navLinks?.length > 0 && navLinks.map(
                         (item, index) => (
-                            <p key={item + index} className="text-white text-base text-center mx-2 cursor-pointer">{item}</p>
+                            <p key={item + index} className="text-white text-base text-center mx-4 my-1 cursor-pointer">{item}</p>
                         )
                     )}
                 </div>

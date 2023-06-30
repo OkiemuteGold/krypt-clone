@@ -16,6 +16,11 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
+
+.max_width_2000 {
+  @apply max-w-[2000px] mx-auto px-4;
+}
+
 .main_max_width {
   @apply max-w-[1300px] mx-auto px-4;
 }

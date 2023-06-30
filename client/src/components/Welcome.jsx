@@ -8,6 +8,7 @@ import { BsInfoCircle } from "react-icons/bs";
 import { TransactionContext } from "../context/TransactionContext";
 // import { shortenAddress } from "../utils/shortenAddress";
 import { Loader } from ".";
+import { shortenAddress } from "../utils/shortenAddress";
 
 const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
 
@@ -51,7 +52,7 @@ const Welcome = () => {
 
     return (
         <div className="flex w-full justify-center items-center">
-            <div className="flex mf:flex-row mf:gap-14 flex-col items-start justify-between md:px-16 md:py-20 lg:p-20 py-12 px-2">
+            <div className="flex mf:flex-row mf:gap-14 flex-col items-center justify-between md:px-16 md:py-20 lg:p-20 py-12 px-2">
                 <div className="flex flex-1 justify-start items-start flex-col">
                     <h1 className="text-3xl sm:text-5xl text-white text-gradient py-1">
                         Send Crypto <br /> across the world
@@ -102,7 +103,7 @@ const Welcome = () => {
                             </div>
                             <div>
                                 <p className="text-white font-light text-sm">
-                                    0xadadad....sdfsdf
+                                    {currentAccount && shortenAddress(currentAccount)}
                                 </p>
                                 <p className="text-white font-semibold text-lg mt-1">
                                     Ethereum
