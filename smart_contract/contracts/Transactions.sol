@@ -58,10 +58,10 @@ contract Transactions {
         view
         returns (TransferStruct[] memory)
     {
-        // return transactions
+        return transactions;
     }
 
     function getTransactionCount() public view returns (uint256) {
-        // return transaction count
+        return transactionCount;
     }
 }

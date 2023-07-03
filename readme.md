@@ -17,5 +17,7 @@ My first blockchain cryptocurrency app that allows user send transactions in the
 
 #### Compile and Deploy smart contract
 
+`https://docs.alchemy.com/docs/how-to-deploy-a-smart-contract-to-the-sepolia-testnet`
+
 `npx hardhat compile`
 `npx hardhat run scripts/deploy.js --network sepolia`

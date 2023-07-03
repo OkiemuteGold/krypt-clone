@@ -10,30 +10,33 @@ const hre = require("hardhat");
 const main = async () => {
   // get the contract to deploy
   const Transactions = await hre.ethers.getContractFactory('Transactions');
+
   console.log('Deploying Transactions...');
 
   const transactions = await Transactions.deploy();
   await transactions.deployed();
 
-  console.log('Transactions deployed to:', transactions.address);
+  console.log('Transactions deployed to address:', transactions.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
 
-// main().catch((error) => {
-//   console.error(error);
-//   process.exitCode = 1;
-// });
-
-const runMain = async () => {
-  try {
-    main();
-    process.exitCode = 0;
-  } catch (error) {
+main()
+  .then(() => process.exit(0))
+  .catch(error => {
     console.error(error);
-    process.exitCode = 1;
-  }
-}
+    process.exit(1);
+  });
 
-runMain();
+// const runMain = async () => {
+//   try {
+//     main();
+//     process.exitCode = 0;
+//   } catch (error) {
+//     console.error(error);
+//     process.exitCode = 1;
+//   }
+// }
+
+// runMain();
