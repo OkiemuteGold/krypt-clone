@@ -26,14 +26,14 @@ const TransactionsCard = ({ addressTo, addressFrom, timestamp, message, keyword,
             <div className="flex flex-col justify-center items-center w-full py-2">
                 <div className="flex flex-col gap-1 w-full mb-6 pb-2 px-3">
                     <a href={`https://sepolia.etherscan.io/address/${addressFrom}`} target="_blank" rel="noopener noreferrer">
-                        <p className="text-white text-base">From: {shortenAddress(addressFrom)}</p>
+                        <p className="text-white text-base"><span className="text-gray-300 text-sm mr-1">From:</span> {shortenAddress(addressFrom)}</p>
                     </a>
 
                     <a href={`https://sepolia.etherscan.io/address/${addressTo}`} target="_blank" rel="noopener noreferrer">
-                        <p className="text-white text-base">To: {shortenAddress(addressTo)}</p>
+                        <p className="text-white text-base"><span className="text-gray-300 text-sm mr-1">To:</span> {shortenAddress(addressTo)}</p>
                     </a>
 
-                    <p className="text-white text-base">Amount: {amount} ETH</p>
+                    <p className="text-white text-base"><span className="text-gray-300 text-sm mr-1">Amount:</span> {amount} ETH</p>
 
                     {message && (
                         <p className="text-white text-base mt-4">Message: {message}</p>
