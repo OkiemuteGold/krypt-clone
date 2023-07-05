@@ -5,8 +5,7 @@ import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
 
-import { TransactionContext } from "../context/TransactionContext";
-// import { shortenAddress } from "../utils/shortenAddress";
+import { TransactionContext } from "../context/InteractContext";
 import { Loader } from ".";
 import { shortenAddress } from "../utils/shortenAddress";
 
@@ -32,20 +31,17 @@ Input.propTypes = {
 };
 
 const Welcome = () => {
-    // const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading } = useContext(TransactionContext);
-
-    const { currentAccount, connectWallet, handleChange, formData, sendTransaction } = useContext(TransactionContext);
-
+    const { currentAccount, connectWallet, handleChange, formData, sendTransaction, isLoading } = useContext(TransactionContext);
     // console.log(currentAccount);
 
-    const isLoading = false;
+    const { addressTo, amount, keyword, message } = formData;
+
+    const isDisabled = !addressTo || !amount || !keyword || !message;
 
     const handleSubmit = (e) => {
-        const { addressTo, amount, keyword, message } = formData;
-
         e.preventDefault();
 
-        if (!addressTo || !amount || !keyword || !message) return;
+        if (isDisabled) return;
 
         sendTransaction();
     };
@@ -126,7 +122,8 @@ const Welcome = () => {
                                 <button
                                     type="button"
                                     onClick={handleSubmit}
-                                    className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer"
+                                    className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer disabled:cursor-not-allowed disabled:bg-transparent"
+                                    disabled={isDisabled}
                                 >
                                     Send now
                                 </button>

@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { ethers } from "ethers";
-import { contractABI, contractAddress } from "../utils/constants";
-
 import PropTypes from "prop-types"
+import { contractABI, contractAddress, apiUrl } from "../utils/constants";
+// import { mainTransactionContract } from "./IntegrateFrontend";
+
+import { Utils } from "alchemy-sdk"
+import { createAlchemyWeb3 } from "@alch/alchemy-web3";
+
 
 export const TransactionContext = React.createContext();
 
 const { ethereum } = window;
 
-// get ethereum contract
-const createEthereumContract = async () => {
-    const provider = new ethers.providers.Web3Provider(ethereum);
-    // await provider.send("eth_requestAccounts", []);
-    const signer = provider.getSigner();
+const web3 = createAlchemyWeb3(apiUrl);
 
-    const transactionContract = new ethers.Contract(contractAddress, contractABI, signer);
-
-    return transactionContract;
-};
+const mainTransactionContract = new web3.eth.Contract(
+    contractABI,
+    contractAddress
+);
 
 
 export const TransactionProvider = ({ children }) => {
@@ -46,23 +45,31 @@ export const TransactionProvider = ({ children }) => {
         );
     };
 
+    const getTransactionCount = async () => {
+        const transactionCount = await mainTransactionContract.methods.getTransactionCount().call();
+
+        console.log(transactionCount);
+
+        setTransactionCount(transactionCount);
+        localStorage.setItem("transactionCount", transactionCount);
+    };
+
     // get all available transactions
     const getAllTransactions = async () => {
         try {
             if (ethereum) {
-                const transactionsContract = createEthereumContract();
 
-                const availableTransactions = await transactionsContract.getAllTransactions();
+                const availableTransactions = await mainTransactionContract.methods.getAllTransactions().call();
 
-                console.log(availableTransactions);
+                // console.log(availableTransactions && availableTransactions);
 
-                const structuredTransactions = availableTransactions.map((transaction) => ({
-                    addressTo: transaction.receiver,
+                const structuredTransactions = availableTransactions?.map((transaction) => ({
                     addressFrom: transaction.sender,
-                    timestamp: new Date(transaction.timestamp.toNumber() * 1000).toLocaleString(),
-                    message: transaction.message,
+                    addressTo: transaction.receiver,
+                    amount: parseInt(transaction.amount) / (10 ** 18),
                     keyword: transaction.keyword,
-                    amount: parseInt(transaction.amount._hex) / (Math.pow(10, 18))
+                    message: transaction.message,
+                    timestamp: new Date(transaction.timestamp * 1000).toLocaleString()
                 }));
 
                 console.log(structuredTransactions);
@@ -72,10 +79,26 @@ export const TransactionProvider = ({ children }) => {
                 console.log("Ethereum is not present");
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     };
 
+    // function to connect wallet on click
+    const connectWallet = async () => {
+        try {
+            if (!ethereum) return alert("Please install metamask!");
+
+            const accounts = await ethereum.request({
+                method: 'eth_requestAccounts'
+            });
+
+            setCurrentAccount(accounts[0]);
+            window.location.reload();
+        } catch (error) {
+            console.error(error);
+            throw new Error("No ethereum account found!");
+        }
+    };
 
     // check if wallet is connected on page load
     const checkIfWalletIsConnected = async () => {
@@ -103,35 +126,28 @@ export const TransactionProvider = ({ children }) => {
         }
     };
 
+    // listens for state changes in the Metamask wallet - new account, switch, disconnect
+    const addWalletListener = () => {
+        if (!ethereum) return alert("Please install metamask!");
+
+        ethereum.on("accountsChanged", (accounts) => {
+            if (accounts.length > 0) {
+                setCurrentAccount(accounts[0]);
+            } else {
+                setCurrentAccount("");
+            }
+        });
+    }
+
     // check if transaction exists
     const checkIfTransactionsExists = async () => {
         try {
             if (ethereum) {
-                const transactionsContract = createEthereumContract();
-                const currentTransactionCount = await transactionsContract.getTransactionCount();
-
-                window.localStorage.setItem("transactionCount", currentTransactionCount);
+                await getTransactionCount();
             }
         } catch (error) {
-            console.log(error);
-            throw new Error("No ethereum object");
-        }
-    };
-
-    // function to connect wallet on click
-    const connectWallet = async () => {
-        try {
-            if (!ethereum) return alert("Please install metamask!");
-
-            const accounts = await ethereum.request({
-                method: 'eth_requestAccounts'
-            });
-
-            setCurrentAccount(accounts[0]);
-            window.location.reload();
-        } catch (error) {
             console.error(error);
-            throw new Error("No ethereum account found!");
+            throw new Error("No ethereum object");
         }
     };
 
@@ -142,10 +158,11 @@ export const TransactionProvider = ({ children }) => {
 
             // get data from the form
             const { addressTo, amount, keyword, message } = formData;
-            const transactionContract = createEthereumContract();
 
             // convert amount in ether to gwei
-            const parsedAmount = ethers.utils.parseEther(amount);
+            const parsedAmount = Utils.parseEther(amount);
+
+            console.log(parsedAmount)
 
             await ethereum.request({
                 method: "eth_sendTransaction",
@@ -153,25 +170,35 @@ export const TransactionProvider = ({ children }) => {
                     from: currentAccount,
                     to: addressTo,
                     gas: "0x5208", // 21000 GWEI
-                    value: parsedAmount._hex, // 0.00001 GWEI
+                    value: parsedAmount._hex // 0.00001 GWEI
                 }]
             });
 
-            const transactionHash = await transactionContract.addToBlockchain(addressTo, parsedAmount, keyword, message);
-
             setIsLoading(true);
-            console.log(`Loading... ${transactionHash?.hash}`);
 
-            await transactionHash.wait();
+            await mainTransactionContract.methods.addToBlockchain(addressTo, parsedAmount, keyword, message).send({
+                from: currentAccount
+            },
+                (error, transactionHash) => {
+                    console.log(`Loading - ${transactionHash}`);
 
-            console.log(`Success... ${transactionHash?.hash}`);
-            setIsLoading(false);
+                    if (transactionHash) {
+                        console.log(`Success - ${transactionHash}`);
+                        setIsLoading(false);
 
-            const transCount = await transactionContract.getTransactionCount();
-            setTransactionCount(transCount?.toNumber());
+                        return transactionHash;
+                    } else if (error) {
+                        console.error(error)
+                        setIsLoading(false);
+                    }
+                }
+            ).on("receipt", async () => {
+                // console.log(receipt);
 
-            localStorage.setItem("transactionCount", transCount?.toNumber());
-            window.location.reload();
+                await getTransactionCount();
+                window.location.reload();
+            });
+
         } catch (error) {
             console.error(error);
             throw new Error("No ethereum account found!");
@@ -181,6 +208,7 @@ export const TransactionProvider = ({ children }) => {
     useEffect(() => {
         checkIfWalletIsConnected();
         checkIfTransactionsExists();
+        addWalletListener();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

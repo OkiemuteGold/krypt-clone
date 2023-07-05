@@ -30,6 +30,11 @@ optionalString: PropTypes.string,
 optionalSymbol: PropTypes.symbol, `
 
 
+### Global not defined error fix
+
+`https://dev.to/richardbray/how-to-fix-the-referenceerror-global-is-not-defined-error-in-sveltekitvite-2i49`
+
+
 ### Vite - Env Variables and Modes
 
 `https://vitejs.dev/guide/env-and-mode.html`

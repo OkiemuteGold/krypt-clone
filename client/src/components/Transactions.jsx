@@ -1,13 +1,15 @@
 import { useContext } from "react";
-import { TransactionContext } from "../context/TransactionContext";
+import { TransactionContext } from "../context/InteractContext";
 
 import useFetch from "../hooks/useFetch";
-import dummyData from "../utils/dummyData";
+// import dummyData from "../utils/dummyData";
 import { shortenAddress } from "../utils/shortenAddress";
 import PropTypes from "prop-types"
 
-const TransactionsCard = ({ addressTo, addressFrom, timestamp, message, keyword, amount, url }) => {
+const TransactionsCard = ({ addressTo, addressFrom, timestamp, message, keyword, amount }) => {
     const gifUrl = useFetch({ keyword });
+
+    const dummyUrl = "https://metro.co.uk/wp-content/uploads/2015/05/pokemon_crying.gif?quality=90&strip=all&zoom=1&resize=500%2C284";
 
     return (
         <div
@@ -19,29 +21,29 @@ const TransactionsCard = ({ addressTo, addressFrom, timestamp, message, keyword,
             sm:min-w-[280px]
             sm:max-w-[300px]
             min-w-full
-            flex-col p-3 rounded-md hover:shadow-2xl"
+            flex-col pt-4 pb-3 px-4 rounded-md hover:shadow-2xl"
         >
-            <div className="flex flex-col items-center w-full mt-3">
-                <div className="display-flex justify-start w-full mb-6 p-2">
-                    <a href={`https://ropsten.etherscan.io/address/${addressFrom}`} target="_blank" rel="noreferrer">
+            <div className="flex flex-col justify-center items-center w-full py-2">
+                <div className="flex flex-col gap-1 w-full mb-6 pb-2 px-3">
+                    <a href={`https://sepolia.etherscan.io/address/${addressFrom}`} target="_blank" rel="noopener noreferrer">
                         <p className="text-white text-base">From: {shortenAddress(addressFrom)}</p>
                     </a>
-                    <a href={`https://ropsten.etherscan.io/address/${addressTo}`} target="_blank" rel="noreferrer">
+
+                    <a href={`https://sepolia.etherscan.io/address/${addressTo}`} target="_blank" rel="noopener noreferrer">
                         <p className="text-white text-base">To: {shortenAddress(addressTo)}</p>
                     </a>
+
                     <p className="text-white text-base">Amount: {amount} ETH</p>
+
                     {message && (
-                        <>
-                            <br />
-                            <p className="text-white text-base">Message: {message}</p>
-                        </>
+                        <p className="text-white text-base mt-4">Message: {message}</p>
                     )}
                 </div>
 
                 <img
-                    src={gifUrl || url}
-                    alt="nature"
-                    className="w-full h-64 2xl:h-96 rounded-md shadow-lg object-cover"
+                    src={gifUrl.url || dummyUrl}
+                    alt={gifUrl.title}
+                    className="w-full h-60 2xl:h-[350px] rounded-md shadow-lg object-cover"
                 />
 
                 <div className="bg-black p-3 px-5 w-max rounded-3xl -mt-5 shadow-2xl">
@@ -58,8 +60,8 @@ TransactionsCard.propTypes = {
     timestamp: PropTypes.string,
     message: PropTypes.string,
     keyword: PropTypes.string,
-    amount: PropTypes.string,
-    url: PropTypes.string
+    amount: PropTypes.number,
+    // url: PropTypes.string
 }
 
 const Transactions = () => {
@@ -83,9 +85,9 @@ const Transactions = () => {
                         </h3>
                     )}
 
-                    <div className="flex gap-7 flex-wrap justify-center items-center mt-14">
+                    <div className="flex gap-7 xl:gap-8 flex-wrap justify-center items-center mt-14">
                         {/* [...dummyData, ...transactions] */}
-                        {dummyData?.reverse().map((transaction, i) => (
+                        {transactions?.reverse().map((transaction, i) => (
                             <TransactionsCard key={i} {...transaction} />
                         ))}
                     </div>

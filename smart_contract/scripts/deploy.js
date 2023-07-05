@@ -5,11 +5,11 @@
 // will compile your contracts, add the Hardhat Runtime Environment's members to the
 // global scope, and execute the script.
 
-const hre = require("hardhat");
+// const hre = require("hardhat");
 
 const main = async () => {
   // get the contract to deploy
-  const Transactions = await hre.ethers.getContractFactory('Transactions');
+  const Transactions = await ethers.getContractFactory('Transactions');
 
   console.log('Deploying Transactions...');
 
