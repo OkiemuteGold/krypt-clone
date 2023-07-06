@@ -40,6 +40,17 @@ optionalSymbol: PropTypes.symbol, `
 `https://vitejs.dev/guide/env-and-mode.html`
 
 
+### Fix already pushed .env file to github
+
+Untrack this file from git by executing the below command, Create .env again if deleted, add to .gitignore file. Commit changes again and push code.
+
+`git rm -r --cached ./PATH_NAME/.env`
+
+`https://stackoverflow.com/questions/30696930/how-to-hide-env-file-from-github`
+
+`https://stackoverflow.com/questions/1274057/how-do-i-make-git-forget-about-a-file-that-was-tracked-but-is-now-in-gitignore`
+
+
 ### Note:
 Credit for initial tutorial and support: JavaScript Mastery.
 `https://www.youtube.com/watch?v=Wn_Kb3MR_cU`
