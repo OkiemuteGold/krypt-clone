@@ -20,8 +20,8 @@ const Footer = () => (
             </div>
 
             <div className="flex justify-center items-center flex-col text-sm text-center text-white my-5">
-                <p className="">Come join us and let&lsquo;s build stuffs together</p>
-                <p className="font-medium mt-2">info@og.com</p>
+                <p className="">Connect with me and let&lsquo;s build stuffs together</p>
+                <p className="font-medium mt-2"><a href="https://www.linkedin.com/in/okiemute-gold" target="_blank" rel="noopener noreferrer">@okiemute-gold</a></p>
             </div>
 
             <div className="w-full h-[0.25px] bg-gray-400 mt-6" />
