@@ -48,7 +48,7 @@ export const TransactionProvider = ({ children }) => {
     const getTransactionCount = async () => {
         const transactionCount = await mainTransactionContract.methods.getTransactionCount().call();
 
-        console.log(transactionCount);
+        // console.log(transactionCount);
 
         setTransactionCount(transactionCount);
         localStorage.setItem("transactionCount", transactionCount);
@@ -72,7 +72,7 @@ export const TransactionProvider = ({ children }) => {
                     timestamp: new Date(transaction.timestamp * 1000).toLocaleString()
                 }));
 
-                console.log(structuredTransactions);
+                // console.log(structuredTransactions);
 
                 setTransactions(structuredTransactions);
             } else {
@@ -162,7 +162,7 @@ export const TransactionProvider = ({ children }) => {
             // convert amount in ether to gwei
             const parsedAmount = Utils.parseEther(amount);
 
-            console.log(parsedAmount)
+            // console.log(parsedAmount)
 
             await ethereum.request({
                 method: "eth_sendTransaction",
@@ -180,10 +180,10 @@ export const TransactionProvider = ({ children }) => {
                 from: currentAccount
             },
                 (error, transactionHash) => {
-                    console.log(`Loading - ${transactionHash}`);
+                    // console.log(`Loading - ${transactionHash}`);
 
                     if (transactionHash) {
-                        console.log(`Success - ${transactionHash}`);
+                        // console.log(`Success - ${transactionHash}`);
                         setIsLoading(false);
 
                         return transactionHash;

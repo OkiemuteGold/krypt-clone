@@ -13,7 +13,7 @@ const useFetch = ({ keyword }) => {
             const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${keyword.split(" ").join("")}&limit=1`);
 
             const { data } = await response.json();
-            console.log(data && data);
+            // console.log(data && data);
 
             setGifUrl({
                 url: data[0]?.images?.downsized_medium?.url,
