@@ -66,7 +66,7 @@ TransactionsCard.propTypes = {
 
 const Transactions = () => {
     const { transactions, currentAccount } = useContext(TransactionContext);
-    console.log(transactions && transactions);
+    // console.log(transactions && transactions);
 
     return (
         <div className="w-full gradient-bg-transactions">

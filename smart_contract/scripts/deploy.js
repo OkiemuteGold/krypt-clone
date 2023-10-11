@@ -16,7 +16,10 @@ const main = async () => {
   const transactions = await Transactions.deploy();
   await transactions.deployed();
 
-  console.log('Transactions deployed to address:', transactions.address);
+  console.log(
+    'Transactions deployed to address:',
+    // transactions.address
+  );
 }
 
 // We recommend this pattern to be able to use async/await everywhere
